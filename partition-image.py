@@ -28,17 +28,14 @@ def analyzeRows(image):
 
 def partitionBlock(color, length):
 
-  piece_lengths = {1, 2, 3, 4, 6, 8, 10, 12, 16}
+  piece_lengths = {1, 2, 3, 4, 6, 8}
 
   length_splits = {
       14: 6,
-      18: 8,
-      20: 10,
-      22: 10,
-      24: 12,
-      26: 10,
-      28: 12,
-      30: 8,
+      18: 6,
+      20: 6,
+      22: 6,
+      24: 8,
       }
 
   if color not in dist:
@@ -59,8 +56,8 @@ def partitionBlock(color, length):
       dist[color][largest_smallest_length] += 1
       length -= largest_smallest_length
     else:
-      dist[color][16] += 1
-      length -= 16
+      dist[color][8] += 1
+      length -= 8
 
 
 
