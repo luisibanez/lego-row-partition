@@ -31,6 +31,7 @@ def analyzeRows(image):
 def partitionBlock(color, length):
 
   if color not in dist:
+    print "ADDING ", color
     dist[color] = {
       1: 0,
       2: 0,
@@ -94,14 +95,14 @@ def partitionBlock(color, length):
       dist[color][12] += 1
       length -= 12
     elif length == 26:
+      dist[color][10] += 1
+      length -= 10
+    elif length == 28:
       dist[color][12] += 1
       length -= 12
-    elif length == 28:
-      dist[color][14] += 1
-      length -= 14
     elif length == 30:
-      dist[color][14] += 1
-      length -= 14
+      dist[color][8] += 1
+      length -= 8
     else:
       dist[color][16] += 1
       length -= 16
