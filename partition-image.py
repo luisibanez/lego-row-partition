@@ -10,19 +10,26 @@ def analyzeRows(image):
   pixels = image.load()
   length = 0
   color = -1
+
+  sum = 0
+
   for y in range(height):
     for x in range(width):
       cpixel = pixels[x, y]
       if (color != cpixel) or (x == 0):
         if length > 0:
+          sum += length
           partitionBlock(color, length)
         color = cpixel  
         length = 1
       else:
         length += 1
 
+  print "sum ", sum
+
 
 def partitionBlock(color, length):
+
   if color not in dist:
     dist[color] = {
       1: 0,
@@ -74,13 +81,45 @@ def partitionBlock(color, length):
     elif length == 16:
       dist[color][16] += 1
       length = 0
+    elif length == 18:
+      dist[color][8] += 1
+      length -= 8
+    elif length == 20:
+      dist[color][10] += 1
+      length -= 10
+    elif length == 22:
+      dist[color][10] += 1
+      length -= 10
+    elif length == 24:
+      dist[color][12] += 1
+      length -= 12
+    elif length == 26:
+      dist[color][12] += 1
+      length -= 12
+    elif length == 28:
+      dist[color][14] += 1
+      length -= 14
+    elif length == 30:
+      dist[color][14] += 1
+      length -= 14
+    else:
+      dist[color][16] += 1
+      length -= 16
 
-    print dist[color]
+  print dist[color]
 
 
 def main():
   portrait = Image.open(sys.argv[1])
   analyzeRows(portrait)
+  print dist
+
+  total = 0 
+  for color in dist:
+    for size in dist[color]:
+      total += dist[color][size]
+
+  print "total pixels ", total
 
 if __name__ == "__main__": main()
 
